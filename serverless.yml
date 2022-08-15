@@ -1,0 +1,17 @@
+service: instapundit-rss-feed-filter
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+functions:
+  feed:
+    handler: handler.feed
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+plugins:
+  - serverless-plugin-typescript
