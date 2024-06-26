@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { parseStringPromise, Builder } from "xml2js";
 
-const FEED_URL = "http://feeds.feedburner.com/pjmedia/instapundit";
+const FEED_URL = "https://instapundit.com/feed/";
 const AUTHOR_NAME = "Glenn Reynolds";
 
 export const feed: Handler<void, ProxyResult> = async () => {
