@@ -1,6 +1,0 @@
-name: instapundit-rss-feed-filter
-org: bricemciver
-description: Filtered RSS feed for Instapundit
-keywords: aws, serverless, faas, lambda, node, typescript
-repo: https://github.com/bricemciver/instapundit-rss-feed-filter
-license: MIT
