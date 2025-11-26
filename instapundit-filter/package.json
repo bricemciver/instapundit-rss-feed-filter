@@ -13,6 +13,7 @@
     "test": "npm run compile && npm run unit"
   },
   "dependencies": {
+    "@aws-sdk/client-ssm": "^3.940.0",
     "axios": "^1.13.2",
     "esbuild": "^0.27.0",
     "xml2js": "^0.6.2"

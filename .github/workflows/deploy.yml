@@ -16,6 +16,12 @@ jobs:
       contents: read
 
     steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
     - name: Checkout
       uses: actions/checkout@v4
 
@@ -24,13 +30,6 @@ jobs:
       with:
         use-installer: true
         token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-        role-session-name: ci
-        aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
     
     - name: Build with SAM
       run: sam build --use-container
@@ -43,5 +42,5 @@ jobs:
           --capabilities CAPABILITY_IAM \
           --resolve-s3 \
           --s3-prefix instapundit-filter \
-          --region ${{ secrets.AWS_REGION || 'us-east-1' }}
+          --region ${{ secrets.AWS_REGION }}
 
