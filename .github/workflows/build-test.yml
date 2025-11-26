@@ -1,0 +1,33 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: '24.x'
+        cache: 'npm'
+
+    - name: Install Dependencies
+      working-directory: ./instapundit-filter
+      run: npm ci
+
+    - name: Run Linter
+      working-directory: ./instapundit-filter
+      run: npm run lint
+
+    - name: Run Tests
+      working-directory: ./instapundit-filter
+      run: npm run test
