@@ -22,9 +22,6 @@ Resources:
       Policies:
         - SSMParameterReadPolicy:
             ParameterName: "/instapundit-filter/*"
-      Environment:
-        Variables:
-          AWS_REGION: !Ref AWS::Region
       Events:
         InstapunditFilter:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api

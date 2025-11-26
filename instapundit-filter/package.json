@@ -7,7 +7,7 @@
   "author": "Brice McIver",
   "license": "MIT",
   "scripts": {
-    "unit": "jest",
+    "unit": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
     "lint": "eslint '*.ts' --quiet --fix",
     "compile": "tsc",
     "test": "npm run compile && npm run unit"
