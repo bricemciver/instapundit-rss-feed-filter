@@ -1,6 +1,6 @@
+import type { APIGatewayProxyResult } from 'aws-lambda';
 import axios from 'axios';
-import { APIGatewayProxyResult } from 'aws-lambda';
-import { parseStringPromise, Builder } from 'xml2js';
+import { Builder, parseStringPromise } from 'xml2js';
 
 const FEED_URL = 'https://instapundit.com/feed/';
 const AUTHOR_NAME = 'Glenn Reynolds';
@@ -19,6 +19,7 @@ export const lambdaHandler = async (): Promise<APIGatewayProxyResult> => {
         const result = await parseStringPromise(xmlData);
 
         // Filter the items
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const filteredItems = result.rss.channel[0].item.filter((item: any) => {
             return item['dc:creator'] && item['dc:creator'][0] === AUTHOR_NAME;
         });

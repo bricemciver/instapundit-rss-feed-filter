@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup AWS SAM
+      uses: aws-actions/setup-sam@v2
+      with:
+        use-installer: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        role-session-name: ci
+        aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
+    
+    - name: Build with SAM
+      run: sam build --use-container
+
+    - name: Deploy with SAM
+      run: |
+        sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+
