@@ -37,5 +37,11 @@ jobs:
 
     - name: Deploy with SAM
       run: |
-        sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+        sam deploy --no-confirm-changeset \
+          --no-fail-on-empty-changeset \
+          --stack-name instapundit-filter \
+          --capabilities CAPABILITY_IAM \
+          --resolve-s3 \
+          --s3-prefix instapundit-filter \
+          --region ${{ secrets.AWS_REGION || 'us-east-1' }}
 
